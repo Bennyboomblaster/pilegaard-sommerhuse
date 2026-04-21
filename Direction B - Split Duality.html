@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pilegaard · Split Duality</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/split-duality.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="shared/i18n.js"></script>
+<script src="shared/placeholders.js"></script>
+</head>
+<body data-palette="default">
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect}=React;
+const TWEAK_DEFAULTS=/*EDITMODE-BEGIN*/{
+  "palette": "default",
+  "heroLayout": "stacked"
+}/*EDITMODE-END*/;
+
+function TopBar({lang,setLang}){return(<header className="topbar">
+  <nav className="topbar__left">
+    <a href="#homes" data-i18n="nav_homes">Homes</a>
+    <a href="#lifts" data-i18n="nav_lifts">Lifts</a>
+    <a href="#about" data-i18n="nav_about">Family</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </nav>
+  <a className="brand"><span className="brand__split"/><span>Pilegaard</span></a>
+  <div className="topbar__right">
+    <div className="lang">{['en','da','de'].map(c=><button key={c} aria-pressed={lang===c} onClick={()=>setLang(c)}>{c}</button>)}</div>
+  </div>
+</header>);}
+
+function SplitHero({layout}){
+  if(layout==="stacked")return(<section>
+    <div className="band band--warm" style={{paddingBottom:32}}>
+      <span className="eyebrow">01 · Homes</span>
+      <h1 className="display band__title" style={{marginTop:16,fontSize:'clamp(52px,7vw,120px)'}} data-i18n="hero_title_a">Two summer homes.</h1>
+      <p style={{maxWidth:'48ch',marginTop:20,color:'var(--ink-soft)'}} data-i18n="hero_sub_a">A small family operation on the west coast.</p>
+      <a href="#homes" className="btn btn--red" style={{marginTop:24}}><span data-i18n="hero_cta_primary">See the homes</span>→</a>
+    </div>
+    <div className="band band--steel" style={{paddingTop:56}}>
+      <span className="eyebrow eyebrow--light">02 · Lifts</span>
+      <h1 className="industrial band__title" style={{marginTop:16,fontSize:'clamp(52px,7vw,120px)'}} data-i18n="lifts_section_title">Reach higher.</h1>
+      <p style={{maxWidth:'48ch',marginTop:20,color:'rgba(244,237,226,0.7)'}} data-i18n="lifts_section_body">Tracked spiders, truck crane, scissor lift.</p>
+      <a href="#lifts" className="btn btn--orange" style={{marginTop:24}}><span data-i18n="hero_cta_secondary">See the fleet</span>→</a>
+    </div>
+  </section>);
+  return(<section className="split-hero">
+    <div className="split-hero__side split-hero__homes">
+      <div className="split-hero__eyebrow"><span className="eyebrow">01 / Homes</span></div>
+      <div className="split-hero__count">Summer · Est. 1992</div>
+      <h1 className="display split-hero__title">Summer<br/>house.</h1>
+      <p className="split-hero__sub" data-i18n="hero_sub_a">Run by the Pilegaard family from a small farm in western Jutland.</p>
+      <a href="#homes" className="btn btn--red split-hero__cta"><span data-i18n="hero_cta_primary">See the homes</span>→</a>
+      <div className="split-hero__photo"><PilePhoto tone="red" objectLabel="red summer house · deck · golden hour"/></div>
+    </div>
+    <div className="split-hero__side split-hero__lifts">
+      <div className="split-hero__eyebrow"><span className="eyebrow eyebrow--light">02 / Lifts</span></div>
+      <div className="split-hero__count" style={{color:'rgba(244,237,226,0.5)'}}>Cranes · Est. 1987</div>
+      <h1 className="industrial split-hero__title">Crane<br/>hire.</h1>
+      <p className="split-hero__sub" data-i18n="lifts_section_body">A small fleet, based in Ringkøbing.</p>
+      <a href="#lifts" className="btn btn--orange split-hero__cta"><span data-i18n="hero_cta_secondary">See the fleet</span>→</a>
+      <div className="split-hero__photo"><PilePhoto tone="steel" objectLabel="spider lift · boom extended · dusk"/></div>
+    </div>
+  </section>);
+}
+
+function HazardStrip(){return(<div className="hazard-strip">
+  {Array(8).fill(0).map((_,i)=><React.Fragment key={i}><span>Pilegaard Kraner · Ringkøbing</span><span className="hazard-strip__mark"/><span>Reach 12–30m</span><span className="hazard-strip__mark"/></React.Fragment>)}
+</div>);}
+
+function HomesBand(){return(<section className="band band--warm" id="homes">
+  <div className="band__header">
+    <div><span className="eyebrow" data-i18n="homes_section_eyebrow">Summer homes</span>
+      <h2 className="display band__title" data-i18n="homes_section_title" style={{marginTop:16}}>Two cabins.</h2></div>
+    <p className="band__body" data-i18n="homes_section_body">We rent our two houses directly.</p>
+  </div>
+  <div className="homes-b">
+    <a className="home-b" href="Home Detail — Havblik.html">
+      <div className="home-b__frame"><PilePhoto tone="red" objectLabel="Havblik · exterior · red"/></div>
+      <div className="home-b__caption"><h3 className="home-b__name" data-i18n="home_1_name">Havblik</h3>
+        <span className="home-b__price" data-i18n="home_1_price">from 4.800 kr / week</span></div>
+      <p className="home-b__meta" data-i18n="home_1_meta">Sleeps 6 · Sea view · Sauna</p>
+    </a>
+    <a className="home-b" href="Home Detail — Havblik.html">
+      <div className="home-b__frame"><PilePhoto tone="forest" objectLabel="Skovly · exterior · pine woods"/></div>
+      <div className="home-b__caption"><h3 className="home-b__name" data-i18n="home_2_name">Skovly</h3>
+        <span className="home-b__price" data-i18n="home_2_price">from 4.200 kr / week</span></div>
+      <p className="home-b__meta" data-i18n="home_2_meta">Sleeps 6 · Wood stove · Fjord</p>
+    </a>
+  </div>
+</section>);}
+
+function LiftsBand(){
+  const units=[
+    {k:"spider",tone:"steel",label:"spider lift · deployed",reach:"23m",nameKey:"lift_spider_name",metaKey:"lift_spider_meta"},
+    {k:"truck",tone:"steel",label:"truck crane · boom",reach:"30m",nameKey:"lift_truck_name",metaKey:"lift_truck_meta"},
+    {k:"scissor",tone:"concrete",label:"scissor · indoor",reach:"12m",nameKey:"lift_scissor_name",metaKey:"lift_scissor_meta"},
+  ];
+  return(<section className="band band--steel" id="lifts">
+    <div className="band__header">
+      <div><span className="eyebrow eyebrow--light" data-i18n="lifts_section_eyebrow">Cranes & lifts</span>
+        <h2 className="industrial band__title" style={{marginTop:16}} data-i18n="lifts_section_title">Reach higher.</h2></div>
+      <p className="band__body" data-i18n="lifts_section_body">A small fleet. Operator optional.</p>
+    </div>
+    <div className="lifts-b">{units.map(u=>(
+      <a key={u.k} className="lift-b" href="Lifts — Fleet.html">
+        <div className="lift-b__frame"><PilePhoto tone={u.tone} objectLabel={u.label}/></div>
+        <div className="lift-b__head">
+          <h3 className="lift-b__name" data-i18n={u.nameKey}>{u.k}</h3>
+          <span className="lift-b__spec">{u.reach}</span>
+        </div>
+        <p className="lift-b__meta" data-i18n={u.metaKey}>meta</p>
+        <span className="lift-b__cta" data-i18n="lift_cta">Availability →</span>
+      </a>
+    ))}</div>
+  </section>);
+}
+
+function AboutB(){return(<section className="about-b" id="about">
+  <div className="about-b__photo"><PilePhoto tone="cream" objectLabel="Kirsten & Jens · kitchen"/></div>
+  <div>
+    <span className="eyebrow" data-i18n="about_eyebrow">The family</span>
+    <h2 className="display about-b__title" style={{marginTop:16}} data-i18n="about_title">Kirsten & Jens</h2>
+    <p className="about-b__body" data-i18n="about_body">Jens bought his first crane in 1987.</p>
+  </div>
+</section>);}
+
+function ContactB(){return(<section className="contact-b" id="contact">
+  <div className="contact-b__info">
+    <span className="eyebrow">Direct</span>
+    <h2 className="display" style={{fontSize:'clamp(40px,5vw,64px)',marginTop:16}} data-i18n="contact_title">Get in touch</h2>
+    <p style={{color:'var(--ink-soft)',maxWidth:'38ch',marginTop:16}} data-i18n="contact_body">We reply the same day.</p>
+    <dl>
+      <div><dt>Phone</dt><dd data-i18n="contact_phone">+45 97 00 00 00</dd></div>
+      <div><dt>Email</dt><dd data-i18n="contact_email">hej@pilegaard.dk</dd></div>
+      <div><dt>Address</dt><dd style={{fontSize:18}} data-i18n="contact_address">Klitvej 14 · 6950 Ringkøbing</dd></div>
+    </dl>
+  </div>
+  <form className="form-b" onSubmit={e=>{e.preventDefault();alert('Sent!')}}>
+    <h3 data-i18n="booking_title">Book directly</h3>
+    <div className="booking-row">
+      <div className="field"><label data-i18n="booking_arrive">Arrive</label><input type="date" defaultValue="2026-07-04"/></div>
+      <div className="field"><label data-i18n="booking_depart">Depart</label><input type="date" defaultValue="2026-07-11"/></div>
+    </div>
+    <div className="booking-row">
+      <div className="field"><label>Service</label><select><option>Havblik</option><option>Skovly</option><option>Crane hire</option></select></div>
+      <div className="field"><label data-i18n="booking_guests">Guests</label><select><option>2</option><option>4</option><option>6</option></select></div>
+    </div>
+    <button className="btn btn--red" style={{justifyContent:'center',marginTop:8}}><span data-i18n="booking_check">Check</span>→</button>
+    <p style={{fontSize:12,color:'var(--ink-faint)'}} data-i18n="booking_note">No booking fee.</p>
+  </form>
+</section>);}
+
+function Footer(){return(<footer className="footer-b">
+  <span data-i18n="footer_small">Pilegaard Udlejning ApS</span>
+  <span data-i18n="footer_built" style={{fontFamily:'var(--font-mono)',fontSize:11,letterSpacing:'0.1em',textTransform:'uppercase'}}>Made in Ringkøbing</span>
+</footer>);}
+
+function Tweaks({tweaks,setTweak,visible}){if(!visible)return null;
+  const pal=[{id:"default",c:"#8b2a26"},{id:"autumn",c:"#9a3b1e"},{id:"coastal",c:"#2f5a6e"}];
+  const hero=[{id:"split",l:"Split"},{id:"stacked",l:"Stacked"}];
+  return(<div className="tweaks-panel">
+    <h4>Palette</h4>
+    <div className="swatch-row">{pal.map(p=><button key={p.id} className="swatch" aria-pressed={tweaks.palette===p.id} style={{background:p.c}} onClick={()=>setTweak({palette:p.id})}/>)}</div>
+    <h4>Hero layout</h4>
+    <div className="tweaks-row">{hero.map(h=><button key={h.id} aria-pressed={tweaks.heroLayout===h.id} onClick={()=>setTweak({heroLayout:h.id})}>{h.l}</button>)}</div>
+  </div>);
+}
+
+function App(){
+  const [tweaks,setTweaks]=useState(TWEAK_DEFAULTS);
+  const [lang,setLang]=useState('en');
+  const [editMode,setEditMode]=useState(false);
+  const setTweak=p=>setTweaks(prev=>{const n={...prev,...p};try{window.parent.postMessage({type:'__edit_mode_set_keys',edits:p},'*')}catch(e){}return n});
+  useEffect(()=>{const h=e=>{if(!e.data||typeof e.data!=='object')return;if(e.data.type==='__activate_edit_mode')setEditMode(true);if(e.data.type==='__deactivate_edit_mode')setEditMode(false)};window.addEventListener('message',h);try{window.parent.postMessage({type:'__edit_mode_available'},'*')}catch(e){}return()=>window.removeEventListener('message',h)},[]);
+  useEffect(()=>{document.body.setAttribute('data-palette',tweaks.palette)},[tweaks.palette]);
+  useEffect(()=>{window.PILEGAARD_APPLY_I18N(lang)},[lang,tweaks.heroLayout]);
+  return(<>
+    <TopBar lang={lang} setLang={setLang}/>
+    <SplitHero layout={tweaks.heroLayout}/>
+    <HazardStrip/>
+    <HomesBand/>
+    <LiftsBand/>
+    <AboutB/>
+    <ContactB/>
+    <Footer/>
+    <Tweaks tweaks={tweaks} setTweak={setTweak} visible={editMode}/>
+  </>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Havblik · Pilegaard</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/warm-editorial.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="shared/i18n.js"></script>
+<script src="shared/placeholders.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect}=React;
+function LangSwitch({lang,setLang}){return(<div className="lang">{['en','da','de'].map(c=><button key={c} aria-pressed={lang===c} onClick={()=>setLang(c)}>{c}</button>)}</div>);}
+function TopBar({lang,setLang}){return(<header className="topbar">
+  <nav className="topbar__left">
+    <a href="index.html" data-i18n="nav_homes">Summer homes</a>
+    <a href="index.html#lifts" data-i18n="nav_lifts">Cranes & lifts</a>
+    <a href="index.html#about" data-i18n="nav_about">The family</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+  </nav>
+  <a href="index.html" className="brand"><span className="brand__mark"/><span>Pilegaard</span></a>
+  <div className="topbar__right"><LangSwitch lang={lang} setLang={setLang}/></div>
+</header>);}
+
+function App(){
+  const [lang,setLang]=useState('en');
+  const [arrive,setArrive]=useState('2026-07-04');
+  const [depart,setDepart]=useState('2026-07-11');
+  const [guests,setGuests]=useState(6);
+  const [sent,setSent]=useState(false);
+  useEffect(()=>{window.PILEGAARD_APPLY_I18N(lang)},[lang]);
+  const nights=Math.max(1,Math.round((new Date(depart)-new Date(arrive))/86400000));
+  const total=nights*685;
+  return(<>
+    <TopBar lang={lang} setLang={setLang}/>
+    <a href="index.html" className="detail-back" data-i18n="detail_back">← Back to all homes</a>
+    <section className="detail-hero">
+      <div>
+        <span className="eyebrow">01 / Summer home</span>
+        <h1 className="display detail-hero__title" style={{marginTop:16}}>Havblik.</h1>
+        <div className="detail-hero__meta">
+          <span>Houvig Klit · 350m from the sea</span>
+          <span>Sleeps 6 (3 bedrooms)</span>
+          <span>Sauna · Outdoor shower</span>
+          <span>Dogs welcome</span>
+        </div>
+      </div>
+      <div style={{fontFamily:'var(--font-display)',fontStyle:'italic',fontSize:24,color:'var(--ink-soft)',lineHeight:1.35,maxWidth:'42ch'}}>
+        "The house my parents built in '94, with the sauna Jens added a decade later. It's quiet here — you hear the dune grass before you hear the sea."
+      </div>
+    </section>
+
+    <section className="gallery">
+      <div><PilePhoto tone="red" objectLabel="Havblik · exterior · deck · late afternoon" caption="01 · exterior"/></div>
+      <div><PilePhoto tone="cream" objectLabel="living room · wood stove · armchair" caption="02 · living"/></div>
+      <div><PilePhoto tone="dune" objectLabel="bedroom · white linen · window" caption="03 · bedroom"/></div>
+    </section>
+
+    <section className="detail-body">
+      <div className="detail-story">
+        <span className="eyebrow" data-i18n="detail_story">About the house</span>
+        <h3 style={{marginTop:16,marginBottom:20}}>A red cabin in the dunes.</h3>
+        <p>Havblik sits on a sandy lane, a five-minute walk through marram grass to the North Sea. The original cabin dates to 1994; we added the sauna wing in 2004 and renovated the kitchen in 2019.</p>
+        <p>Three bedrooms sleep six comfortably — one double, one with twins, one with bunk beds for the kids. The main room has a wood stove (firewood included), a big oak dining table, and a south-facing deck that catches the evening sun.</p>
+        <p>The nearest bakery is a 6-minute bike ride. Ringkøbing town and the fjord are 15 minutes by car. The lifeboat museum at Houvig is walking distance.</p>
+
+        <h3 style={{marginTop:40,marginBottom:16,fontSize:28}} data-i18n="detail_amenities">What's here</h3>
+        <ul className="amenities">
+          <li>Finnish sauna (6 person)</li><li>Wood stove + firewood</li>
+          <li>Dishwasher</li><li>Washer & dryer</li>
+          <li>WiFi 200/50 Mbps</li><li>Smart TV</li>
+          <li>Outdoor shower</li><li>Gas grill</li>
+          <li>4 bicycles (adult)</li><li>High chair & cot</li>
+          <li>Board games & books</li><li>Secure dog fence</li>
+        </ul>
+
+        <h3 style={{marginTop:40,marginBottom:16,fontSize:28}} data-i18n="detail_rates">Rates</h3>
+        <div className="rate-table">
+          <div className="rate-table__row rate-table__row--head"><span>Season</span><span>Per week</span></div>
+          <div className="rate-table__row"><span><strong>Low</strong> · Oct–Mar</span><span className="rate-table__price">4.800 kr</span></div>
+          <div className="rate-table__row"><span><strong>Mid</strong> · Apr–Jun, Sep</span><span className="rate-table__price">6.400 kr</span></div>
+          <div className="rate-table__row"><span><strong>High</strong> · Jul–Aug</span><span className="rate-table__price">8.900 kr</span></div>
+          <div className="rate-table__row"><span>Cleaning (once per stay)</span><span className="rate-table__price">650 kr</span></div>
+        </div>
+      </div>
+
+      <aside>
+        <div style={{position:'sticky',top:80,background:'var(--cream)',padding:32,borderRadius:3,border:'1px solid var(--rule)'}}>
+          <span className="eyebrow" data-i18n="booking_title">Book directly</span>
+          <h3 style={{fontFamily:'var(--font-display)',fontSize:32,fontWeight:400,marginTop:10,lineHeight:1}}>Request these dates.</h3>
+          <form onSubmit={e=>{e.preventDefault();setSent(true);setTimeout(()=>setSent(false),3500)}} style={{marginTop:24,display:'flex',flexDirection:'column',gap:14}}>
+            <div className="booking-row">
+              <div className="field"><label data-i18n="booking_arrive">Arrive</label><input type="date" value={arrive} onChange={e=>setArrive(e.target.value)}/></div>
+              <div className="field"><label data-i18n="booking_depart">Depart</label><input type="date" value={depart} onChange={e=>setDepart(e.target.value)}/></div>
+            </div>
+            <div className="field"><label data-i18n="booking_guests">Guests</label>
+              <select value={guests} onChange={e=>setGuests(+e.target.value)}><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+            </div>
+            <div className="field"><label>Name</label><input placeholder="Hanne Jensen"/></div>
+            <div className="field"><label>Email</label><input type="email" placeholder="hanne@example.dk"/></div>
+            <div style={{display:'flex',justifyContent:'space-between',padding:'14px 0',borderTop:'1px solid var(--rule)',borderBottom:'1px solid var(--rule)',fontFamily:'var(--font-mono)',fontSize:12,letterSpacing:'0.06em'}}>
+              <span>{nights} nights × 685 kr</span><span>{total.toLocaleString('da-DK')} kr</span>
+            </div>
+            <button className="btn btn--ink" style={{justifyContent:'center'}} disabled={sent}>
+              <span>{sent?'Sent — we\'ll reply within 24h ✓':'Request these dates'}</span>{!sent&&<span className="btn__arrow">→</span>}
+            </button>
+            <p className="contact__note" data-i18n="booking_note">No booking fee. Pay 30% now, the rest 30 days before arrival.</p>
+          </form>
+        </div>
+      </aside>
+    </section>
+
+    <section className="map-strip">
+      <div className="map-strip__head">
+        <div><span className="eyebrow eyebrow--light" data-i18n="detail_location">Location</span>
+          <h3 style={{marginTop:10}}>Houvig Klit · 6950 Ringkøbing</h3></div>
+        <p>A 5-minute walk through the dunes to the North Sea. 15 minutes by car to Ringkøbing town and the fjord.</p>
+      </div>
+      <div className="map-frame">
+        <svg className="map-svg" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(244,237,226,0.06)" strokeWidth="1"/></pattern></defs>
+          <rect width="1200" height="420" fill="url(#grid2)"/>
+          <path d="M0,100 L1200,160 L1200,0 L0,0 Z" fill="rgba(200,154,107,0.18)"/>
+          <path d="M0,100 L1200,160 L1200,260 L0,220 Z" fill="rgba(200,154,107,0.35)"/>
+          <path d="M0,220 L1200,260 L1200,420 L0,420 Z" fill="rgba(43,58,42,0.55)"/>
+          <text x="40" y="60" fill="#f4ede2" opacity="0.5" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="3">NORTH SEA</text>
+          <text x="40" y="200" fill="#f4ede2" opacity="0.5" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="3">DUNES · HOUVIG KLIT</text>
+          <g transform="translate(600,230)"><circle r="10" fill="#8b2a26"/><circle r="20" fill="none" stroke="#8b2a26" strokeOpacity="0.5"/><circle r="30" fill="none" stroke="#8b2a26" strokeOpacity="0.25"/><text x="24" y="-8" fill="#f4ede2" fontFamily="Instrument Serif" fontSize="22">Havblik</text><text x="24" y="14" fill="#d7d0bd" fontFamily="JetBrains Mono" fontSize="10" opacity="0.7">Klitvej 14</text></g>
+          <g transform="translate(900,360)" fontFamily="JetBrains Mono" fontSize="9" fill="#d7d0bd" opacity="0.5"><text letterSpacing="2">RINGKØBING · 15 MIN →</text></g>
+          <g transform="translate(200,360)" fontFamily="JetBrains Mono" fontSize="9" fill="#d7d0bd" opacity="0.5"><text letterSpacing="2">← HVIDE SANDE · 20 MIN</text></g>
+        </svg>
+      </div>
+    </section>
+
+    <footer className="footer">
+      <div className="footer__left"><span data-i18n="footer_small">Pilegaard Udlejning ApS</span></div>
+      <div className="footer__right" data-i18n="footer_built">Made with care in Ringkøbing</div>
+    </footer>
+  </>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

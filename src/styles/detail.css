@@ -1,0 +1,291 @@
+/* House detail page — warm editorial */
+
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px var(--pad-x);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid rgba(26, 24, 21, 0.08);
+  width: 100%;
+}
+.detail-back:hover { color: var(--ink); }
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: end;
+  padding: clamp(48px, 7vw, 96px) var(--pad-x) clamp(40px, 5vw, 72px);
+  border-bottom: 1px solid rgba(26, 24, 21, 0.1);
+}
+
+.detail-hero__title {
+  font-size: clamp(56px, 8vw, 120px);
+  color: var(--red);
+  margin-top: 16px;
+}
+
+.detail-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 20px;
+}
+.detail-hero__meta span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.detail-hero__meta span::before {
+  content: '·';
+  margin-right: 8px;
+  color: var(--red);
+  opacity: 0.6;
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3px;
+  background: var(--cream-deep);
+}
+.gallery > div {
+  overflow: hidden;
+}
+.gallery > div:first-child {
+  aspect-ratio: 4 / 3;
+}
+.gallery > div:not(:first-child) {
+  aspect-ratio: 3 / 4;
+}
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.gallery > div:hover img {
+  transform: scale(1.03);
+}
+
+/* Detail body: story + sidebar */
+.detail-body {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: clamp(40px, 6vw, 96px);
+  padding: clamp(56px, 8vw, 112px) var(--pad-x);
+  align-items: start;
+}
+
+.detail-story h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.detail-story p {
+  color: var(--ink-soft);
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 60ch;
+  margin-top: 16px;
+}
+
+.amenities {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 32px;
+  margin-top: 0;
+}
+.amenities li {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(26, 24, 21, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.amenities li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.rate-table {
+  border: 1px solid rgba(26, 24, 21, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.rate-table__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(26, 24, 21, 0.08);
+  font-size: 14px;
+  gap: 16px;
+}
+.rate-table__row:last-child { border-bottom: none; }
+.rate-table__row--head {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.rate-table__price {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  white-space: nowrap;
+}
+
+/* Booking sidebar */
+.booking-sidebar {
+  position: sticky;
+  top: 80px;
+  background: white;
+  padding: 32px;
+  border-radius: 3px;
+  border: 1px solid rgba(26, 24, 21, 0.12);
+  box-shadow: 0 4px 24px rgba(26, 24, 21, 0.06);
+}
+.booking-sidebar__title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  margin-top: 10px;
+  line-height: 1.1;
+}
+.booking-sidebar form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.booking-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-top: 1px solid rgba(26, 24, 21, 0.1);
+  border-bottom: 1px solid rgba(26, 24, 21, 0.1);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.btn--ink {
+  background: var(--ink);
+  color: var(--cream);
+  justify-content: center;
+}
+.btn--ink:hover { background: #2c2926; }
+.btn--ink:disabled { opacity: 0.6; cursor: not-allowed; }
+.contact__note {
+  font-size: 12px;
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Map strip */
+.map-strip {
+  background: var(--steel);
+  color: var(--cream);
+}
+.map-strip__head {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(24px, 5vw, 80px);
+  align-items: end;
+  padding: clamp(48px, 6vw, 80px) var(--pad-x) 40px;
+}
+.map-strip__head h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 10px;
+}
+.map-strip__head p {
+  font-size: 15px;
+  color: rgba(244, 237, 226, 0.65);
+  max-width: 44ch;
+  line-height: 1.6;
+}
+.map-frame {
+  width: 100%;
+  overflow: hidden;
+}
+.map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Footer (detail page variant) */
+.footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 40px var(--pad-x);
+  font-size: 13px;
+  color: var(--ink-soft);
+  border-top: 1px solid rgba(26, 24, 21, 0.1);
+}
+.footer__right {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Topbar brand__mark (detail page variant of brand__split) */
+.brand__mark {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(90deg, var(--red) 50%, var(--steel) 50%);
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .detail-hero,
+  .detail-body,
+  .map-strip__head {
+    grid-template-columns: 1fr;
+  }
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gallery > div:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+  .gallery > div:not(:first-child) {
+    aspect-ratio: 4 / 3;
+  }
+  .booking-sidebar {
+    position: static;
+  }
+  .amenities {
+    grid-template-columns: 1fr;
+  }
+}
