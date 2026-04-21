@@ -108,6 +108,15 @@ export default function HouseDetailPage({ lang, setLang }: Props) {
               </div>
             ))}
           </div>
+
+          <a
+            href={house.bureauUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 32, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-soft)', borderBottom: '1px solid rgba(26,24,21,0.2)', paddingBottom: 2 }}
+          >
+            Also listed on Sol og Strand ↗
+          </a>
         </div>
 
         {/* Booking sidebar */}

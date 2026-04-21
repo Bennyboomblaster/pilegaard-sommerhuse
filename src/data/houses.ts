@@ -7,6 +7,7 @@ export interface HouseData {
   slug: string
   name: string
   location: string
+  bureauUrl: string
   meta: string[]
   quote: string
   story: string[]
@@ -29,6 +30,7 @@ export const houses: HouseData[] = [
     slug: 'bornholm',
     name: 'Arnager',
     location: 'Arnager · Bornholms sydkyst · 250 m fra havet',
+    bureauUrl: 'https://www.sologstrand.dk/hus/95-0264',
     meta: [
       'Sleeps 6 · 3 bedrooms',
       '250 m to the beach',
@@ -85,6 +87,7 @@ export const houses: HouseData[] = [
     slug: 'kregme',
     name: 'Kregme',
     location: 'Dagsværmervej 11 · Kregme · 400 m fra Isefjord',
+    bureauUrl: 'https://www.sologstrand.dk/hus/93-3409',
     meta: [
       'Sleeps 6 · 2 bedrooms',
       '400 m to the fjord',
