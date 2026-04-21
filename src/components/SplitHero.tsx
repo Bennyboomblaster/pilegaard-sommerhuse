@@ -1,4 +1,5 @@
 import { I18nDict } from '../data/i18n'
+import { scrollTo } from '../utils/scrollTo'
 
 interface SplitHeroProps {
   t: I18nDict
@@ -20,9 +21,9 @@ export default function SplitHero({ t }: SplitHeroProps) {
       <p style={{ maxWidth: '52ch', marginTop: 20, color: 'var(--ink-soft)', fontSize: 17, lineHeight: 1.6 }}>
         {t.hero_sub_a}
       </p>
-      <a href="#homes" className="btn btn--red" style={{ marginTop: 28 }}>
+      <button className="btn btn--red" style={{ marginTop: 28 }} onClick={() => scrollTo('homes')}>
         <span>{t.hero_cta_primary}</span>→
-      </a>
+      </button>
     </section>
   )
 }
