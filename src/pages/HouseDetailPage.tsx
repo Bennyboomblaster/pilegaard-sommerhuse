@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { getHouse } from '../data/houses'
 import { Lang, i18n } from '../data/i18n'
+import { assetUrl } from '../utils/assetUrl'
 import '../styles/detail.css'
 
 interface Props {
@@ -78,7 +79,7 @@ export default function HouseDetailPage({ lang, setLang }: Props) {
       <section className="gallery">
         {house.gallery.map((src, i) => (
           <div key={i}>
-            <img src={src} alt={`${house.name} · photo ${i + 1}`} />
+            <img src={assetUrl(src)} alt={`${house.name} · photo ${i + 1}`} />
           </div>
         ))}
       </section>

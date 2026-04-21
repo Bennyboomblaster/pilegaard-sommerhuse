@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { I18nDict } from '../data/i18n'
+import { assetUrl } from '../utils/assetUrl'
 import '../styles/house-images.css'
 
 interface HomesBandProps {
@@ -27,7 +28,7 @@ export default function HomesBand({ t }: HomesBandProps) {
       <div className="homes-b">
         <Link className="home-b" to="/houses/bornholm">
           <div className="home-b__frame">
-            <img src="/Bornholm/facade_1.jpg" alt="Bornholm house exterior" className="home-b__img" />
+            <img src={assetUrl('/Bornholm/facade_1.jpg')} alt="Bornholm house exterior" className="home-b__img" />
           </div>
           <div className="home-b__caption">
             <h3 className="home-b__name">{t.home_1_name}</h3>
@@ -37,7 +38,7 @@ export default function HomesBand({ t }: HomesBandProps) {
         </Link>
         <Link className="home-b" to="/houses/kregme">
           <div className="home-b__frame">
-            <img src="/Kregme/facade_2.jpg" alt="Kregme house exterior" className="home-b__img" />
+            <img src={assetUrl('/Kregme/facade_2.jpg')} alt="Kregme house exterior" className="home-b__img" />
           </div>
           <div className="home-b__caption">
             <h3 className="home-b__name">{t.home_2_name}</h3>
